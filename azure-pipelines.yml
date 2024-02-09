@@ -88,3 +88,4 @@
                     appName: '$(WebAppName)'
                     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
                     appType: webAppLinux
+                    resourceGroupName: rg-ops-weu-dev
