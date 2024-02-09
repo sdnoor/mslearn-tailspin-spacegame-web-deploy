@@ -64,3 +64,27 @@
   
       - publish: '$(Build.ArtifactStagingDirectory)'
         artifact: drop
+
+  - stage: 'Deploy'
+    displayName: 'Deploy the web application'
+    dependsOn: build
+    jobs:
+      - deployment: 'Deploy'
+        pool:
+          vmImage: 'ubuntu-20.04'
+        environment: dev-yaml
+        variables:
+        - group: Release-YAML
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+                - task: AzureWebApp@1
+                  displayName: 'Azure App Service Deployment by NOOR: website'
+                  inputs:
+                    azureSubscription: 'Matas Training Development'
+                    appName: '$(WebAppName)'
+                    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+                    appType: webAppLinux
