@@ -84,7 +84,7 @@
                 - task: AzureWebApp@1
                   displayName: 'Azure App Service Deployment by NOOR: website'
                   inputs:
-                    azureSubscription: 'Matas Training Development'
+                    azureSubscription: 'Matas Dev/Test Operations'
                     appName: '$(WebAppName)'
                     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
                     appType: webAppLinux
